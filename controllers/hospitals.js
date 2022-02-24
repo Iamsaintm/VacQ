@@ -39,10 +39,10 @@ exports.createHospital= async (req,res,next)=>{
 
         res.status(200).json({success:true, data:hospital});
     } catch(err){
-        console.log(err.stack);
         res.status(400).json({success:false});
     }
 };
+
 //@desc   Update hospital
 //@route  PUT /api/v1/hospitals/:id
 //@access Private
