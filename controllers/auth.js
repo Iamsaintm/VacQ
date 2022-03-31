@@ -39,7 +39,7 @@ exports.login=async (req,res,next)=>{
     //Check if password matches
     const isMatch = await user.matchPassword(password);
     if(!isMatch) {
-        return res.status(401).json({success:false, msg:'Invalid credentials'});
+        return res.status(401).json({success:false, msg:'Cannot convert email or password to string'});
     }
 
     //Create token
@@ -73,5 +73,19 @@ exports.getMe=async(req,res,next)=>{
     res.status(200).json({
         success:true,
         data:user
+    });
+};
+
+//@desc     Log user out / clear cookie
+//@route    GET  /api/v1/auth/logout
+//@access   Private
+exports.logout=async(req,res,next)=>{
+    res.cookie('token','none',{
+        expires: new Date(Date.now()+ 10*1000),
+        httpOnly:true
+    });
+    res.status(200).json({
+        success:true,
+        date:{}
     });
 };
